@@ -42,9 +42,25 @@ const { nombre, descripcion, imagen, estado, precio, stock  } = req.body;
 
 }
 
+const updateProductCompra = (req, res) => {
+    //const sku  = req.params.sku
+const {  stock, sku  } = req.body;
+ let stmt = `UPDATE producto SET stock = ? WHERE sku = ?`;
+ let data = [  stock, sku];
+ 
+ conexion.query(stmt, data , (err, results, fields) => {
+    if(err) throw err
+    console.log('filas: ', results);
+    res.json({ message: 'producto actualizado correctamente' })
+ })
+
+}
+
+
 module.exports = {
     getProduct,
     postProduct,
-    updateProduct
+    updateProduct,
+    updateProductCompra
 }
 
